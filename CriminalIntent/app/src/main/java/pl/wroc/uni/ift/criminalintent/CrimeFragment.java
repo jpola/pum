@@ -26,7 +26,6 @@ import android.widget.EditText;
 // elementy widoku fragmentu aby potem w kolejnym kroku wykorzystać je w metodzie onCreate2`
 
 
-
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
@@ -81,7 +80,4 @@ public class CrimeFragment extends Fragment {
 
         return v;
     }
-
-
-
 }
