@@ -61,4 +61,11 @@ This means, in which direction it's contents should align.
         android:layout_gravity="bottom|right"
         android:padding="20dp"
         android:src="@drawable/arrow_right"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_cheat"
+        android:layout_gravity="bottom|center"
+        android:text="@string/cheat_button_label"/>
 </FrameLayout>

@@ -14,6 +14,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
+
+    // Key for questions array to be stored in bundle;
+    private static final String KEY_QUESTIONS = "questions";
+
     private static final int CHEAT_REQEST_CODE = 0;
 
 
@@ -52,6 +56,22 @@ public class QuizActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX);
             Log.i(TAG, String.format("onCreate(): Restoring saved index: %d", mCurrentIndex));
+
+            // here in addition we are restoring our Question array;
+            // getParcelableArray returns object of type Parcelable[]
+            // since our Question is implementing this interface (Parcelable)
+            // we are allowed to cast the Parcelable[] to desired type which
+            // is the Question[] here.
+            mQuestionsBank = (Question []) savedInstanceState.getParcelableArray(KEY_QUESTIONS);
+            // sanity check
+            if (mQuestionsBank == null)
+            {
+                Log.e(TAG, "Question bank array was not correctly returned from Bundle");
+
+            } else {
+                Log.i(TAG, "Question bank array was correctly returned from Bundle");
+            }
+
         }
 
         mCheatButton = (Button) findViewById(R.id.button_cheat);
@@ -142,49 +162,20 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
         }
-
-
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, String.format("onSaveInstanceState: current index %d ", mCurrentIndex) );
+
+        //we still have to store current index to correctly reconstruct state of our app
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+
+        // because Question is implementing Parcelable interface
+        // we are able to store array in Bundle
+        savedInstanceState.putParcelableArray(KEY_QUESTIONS, mQuestionsBank);
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart() called");
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause() called");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop() called");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
-    }
-
 
     private void updateQuestion() {
         int question = mQuestionsBank[mCurrentIndex].getTextResId();
