@@ -12,34 +12,36 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 /**
  * Created by jpola on 04.08.17.
  */
 
-// Klasa obsługująca Fragment który będzie wyświetlany na ekranie
-// Implementacja jest bliźniaczo podobna do Activity z kilkoma różnicami
-// 1. Widok (fragment_crime) pompujemy w metodzie onCreateView
-// 2. Inne dane standardowo w onCreate.
-
-// Kolejność wywołania metod jest następująca. Najpierw onCreateView, potem onCreate.
-// chemy mieć już gotowy, napompowany widok i podłączone wszystkie
-// elementy widoku fragmentu aby potem w kolejnym kroku wykorzystać je w metodzie onCreate2`
-
-
 public class CrimeFragment extends Fragment {
+
+    private static final String ARG_CRIME_ID = "crime_id";
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
-    // here is difference from Activity onCreate. Fragment lifetime methods are public whereas
-    // Activity's methods are protected. They have to be because they are called by activities
-    // which is hosting the fragment. public give an access for outside the package.
+
+    public static CrimeFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class CrimeFragment extends Fragment {
 
         // hook up the fields from layout
         mTitleField = v.findViewById(R.id.crime_title);
-        // Listener do obsługi zdarzeń podczas edycji tekstu
+        mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
@@ -71,6 +73,7 @@ public class CrimeFragment extends Fragment {
         mDateButton.setEnabled(false);
 
         mSolvedCheckBox = v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -80,4 +83,7 @@ public class CrimeFragment extends Fragment {
 
         return v;
     }
+
+
+
 }

@@ -9,18 +9,6 @@ import android.support.v7.app.AppCompatActivity;
  * Created by jpola on 07.08.17.
  */
 
-// Klasa bazowa dla wszystkich aktywności które przechowują pojedynczy fragment
-// W klasie pochodnej należy nadpisać metodę createFragment().
-
-/**
- * Każda nowa aktywność będzie składała się z
- * Hostującego activity - w tym projekcie to:
- *          CrimeActivity - dla detali przestępstwa
- *          CrimeListActivity - aktywność prezentująca listę wszystkich dostępnych przestępstw
- * Fragment wyświetlającu UI. Jest to layout fragmentu (plik xml) oraz odpowiadająca mu klasa java
- * implementująca funkconalność. Np. CrimeListActivity wyświetla CrimeListFragment,
- * który ma zdefiniowane UI w pliku fragment_crime_list.xml
-   */
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();

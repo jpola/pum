@@ -9,31 +9,23 @@ import java.util.UUID;
 /**
  * Created by jpola on 07.08.17.
  */
-// Singleton - oznacza że w naszej aplikacji będzie istniała tylko jedna instancja tej klasy.
-// Ma prywatny konstruktor - nie możemy go wywołać w innej części kodu
-// aby operować na składowych tej klasy tworzymy go wywołując CrimeLab.get()
+
 public class CrimeLab {
 
-    // statyczne pole o typu tej klasy. Dziwne prawda? ;)
     private static CrimeLab sCrimeLab;
-
 
     // use an interface for declaring variables
     private List<Crime> mCrimes;
 
-    // metoda get zamiast konstruktora
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null)
         {
-            // przy pierwszym wywołaniu będzie to
             sCrimeLab = new CrimeLab(context);
         }
-        // po pierwszym wywolaniu sCrimeLab jest już zainicjalizowany więc
-        // zwracamy tylko zmienną
         return sCrimeLab;
     }
 
-    // Uwaga: prywatny konstruktor
+    // Context argument will be used later for databases
     private CrimeLab(Context context) {
         // and here use an implementation when instantiating
         mCrimes = new ArrayList<>();
@@ -47,8 +39,6 @@ public class CrimeLab {
         }
 
     }
-
-    //Getters and Setters
 
     public List<Crime> getCrimes() {
         return mCrimes;

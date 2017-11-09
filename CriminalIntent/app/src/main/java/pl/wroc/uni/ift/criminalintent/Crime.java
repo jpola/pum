@@ -7,8 +7,6 @@ import java.util.UUID;
  * Created by jpola on 04.08.17.
  */
 
-// POD - plain old data object.
-// prosta klasa przechowujaca dane o przestępstwie.
 public class Crime {
 
     //immutable universally unique identifier (UUID)
@@ -17,9 +15,7 @@ public class Crime {
     private Date mDate;
     private boolean mSolved;
 
-    // simple constructor. It will generate random ID for a crime
-    // and assign today's date to mDate field.
-    // UUID will guarantee that id will not be repeated for a very long time.
+
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
