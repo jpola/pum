@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView mTextView;
     Button mButton;
+    Button mButtonInternal;
 
 
     @Override
@@ -39,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        mButtonInternal = (Button) findViewById(R.id.button_view_internally);
+        mButtonInternal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, mTextView.getText());
+                startActivity(intent);
             }
         });
 
