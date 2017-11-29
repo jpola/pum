@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.jpola.fullsizephoto">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <!--FileProvider is a special subclass of ContentProvider that facilitates secure sharing of
+        files associated with an app by creating a content:// Uri for a file.
+        A content URI allows you to grant read and write access using temporary access permissions.
+        When you create an Intent containing a content URI, in order to send the content URI to a
+        -->
+        <!-- android:authorities attribute to a URI authority based on a domain you control;
+        for example, if you control the domain mydomain.com you should use the authority
+        com.mydomain.fileprovider.-->
+
+        <!--String under authorities means whoThis string will be used in the code -->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.jpola.fullsizephoto.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+
+
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
