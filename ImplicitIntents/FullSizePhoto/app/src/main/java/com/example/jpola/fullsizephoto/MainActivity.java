@@ -78,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 takeAPhotoIntent();
             }
         });
-
-
-
-
     }
 
 
@@ -153,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        /**
+         * If set to true, the decoder will return null (no bitmap), but
+         * the out... fields will still be set, allowing the caller to query
+         * the bitmap without having to allocate the memory for its pixels.
+         */
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         int photoW = bmOptions.outWidth;
